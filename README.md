@@ -1,0 +1,1 @@
+(https://phpmyadmin-production-c66c.up.railway.app/index.php?route=/sql&pos=0&db=creditos&table=clientes)[PHP MY ADMIN]
