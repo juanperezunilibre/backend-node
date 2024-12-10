@@ -28,18 +28,24 @@ router.get("/usuario", function (request, response) {
 })
 
 router.get("/clientes", function (request, response) {
-  connection.query("SELECT * FROM clientes", function (error, result) {
-    if (error) {
-      console.log("Error fetching clients", error)
-    } else {
-      response.json(result)
-    }
-  })
+  connection.query(
+    "SELECT * FROM clientes ORDER BY id DESC",
+    function (error, result) {
+      if (error) {
+        console.log("Error fetching clients", error)
+      } else {
+        response.json(result)
+      }
+    },
+  )
 })
 
 router.post("/cliente", async function (request, response) {
   const schema = yup.object().shape({
-    documento: yup.string().required("El documento es obligatorio"),
+    documento: yup
+      .string()
+      // .matches(/^[0-9]{7,10}$/, "El documento no es válido - min 7 max 10 dígitos")
+      .required("El documento es obligatorio"),
     nombre: yup.string().required("El nombre es obligatorio"),
     apellidos: yup.string().required("Los apellidos son obligatorios"),
     email: yup
