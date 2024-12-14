@@ -43,7 +43,7 @@ router.post("/cliente", async function (request, response) {
     console.log(result)
 
     const query =
-      "INSERT INTO clientes (documento, nombre, apellidos, email, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)"
+      "INSERT INTO clientes (documento, nombre, apellidos, email, fecha_nacimiento, image) VALUES (?, ?, ?, ?, ?, ?)"
 
     connection.execute(query, Object.values(datos), function (error, result) {
       if (error) {
@@ -97,7 +97,7 @@ router.put("/cliente/:id", async function (request, response) {
     await schema.validate(data) // validamos que el objeto cumpla con el esquema
 
     const query =
-      "UPDATE clientes SET documento = ?, nombre = ?, apellidos = ?, email = ?, fecha_nacimiento = ? WHERE id = ?"
+      "UPDATE clientes SET documento = ?, nombre = ?, apellidos = ?, email = ?, fecha_nacimiento = ?, image = ? WHERE id = ?"
   
     connection.execute(
       query,
