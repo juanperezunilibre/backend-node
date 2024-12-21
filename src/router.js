@@ -42,10 +42,14 @@ router.post("/cliente", async function (request, response) {
     const result = await schema.validate(datos) // validamos que el objeto cumpla con el esquema
     console.log(result)
 
+    const keys = Object.keys(datos).join(",")
+    const params = Object.keys(datos).map(k => "?").join(",")
+    const values = Object.values(datos)
+    console.log(keys, params, values)
     const query =
-      "INSERT INTO clientes (documento, nombre, apellidos, email, fecha_nacimiento, image) VALUES (?, ?, ?, ?, ?, ?)"
+      `INSERT INTO clientes (${keys}) VALUES (${params})`
 
-    connection.execute(query, Object.values(datos), function (error, result) {
+    connection.execute(query, values, function (error, result) {
       if (error) {
         response.status(400).json({
           message: "Error al guardar el cliente",
@@ -96,8 +100,11 @@ router.put("/cliente/:id", async function (request, response) {
   try {
     await schema.validate(data) // validamos que el objeto cumpla con el esquema
 
+    const keys = Object.keys(data).map(k => `${k} = ?`).join(", ")
+    console.log(keys)
+
     const query =
-      "UPDATE clientes SET documento = ?, nombre = ?, apellidos = ?, email = ?, fecha_nacimiento = ?, image = ? WHERE id = ?"
+      `UPDATE clientes SET ${keys} WHERE id = ?`
   
     connection.execute(
       query,
