@@ -7,7 +7,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors({
-    origin: ["http://localhost:5173", "https://clientes-creditos.netlify.app"]
+    origin: ["http://localhost:5173", "https://clientes-creditos.netlify.app", "https://react-ts-example-alpha.vercel.app"]
 })) // aceptar peticiones de cualquier origen
 app.use(express.json())
 app.use(router)
